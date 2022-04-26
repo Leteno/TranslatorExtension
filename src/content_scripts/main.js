@@ -9,3 +9,28 @@ function createSimplePanel(text) {
 }
 
 createSimplePanel("I miss you")
+
+function getSelectionText() {
+  var txt = '';
+  if (window.getSelection) {
+    txt = window.getSelection();
+  }
+  else if (document.getSelection) {
+    txt = document.getSelection();
+  }
+  else if (document.selection) {
+    txt = document.selection.createRange().text;
+  }
+
+  return txt;
+}
+
+function main() {
+  document.addEventListener('mouseup', (event) => {
+    console.log(`Position: ${event.clientX} ${event.clientY}`)
+    var selection = getSelectionText();
+    console.log(`selection is ${selection}`);
+  })
+}
+
+main()
