@@ -2,12 +2,24 @@
   "manifest_version": 3,
   "name": "Translator",
   "version": "0.0.1",
-
   "action": {
     "default_icon": {
       "16": "images/Hello_World.png"
     },
     "default_title": "Am I title",
     "default_popup": "popup.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "content_scripts/main.css"
+      ],
+      "js": [
+        "content_scripts/main.js"
+      ]
+    }
+  ]
 }
