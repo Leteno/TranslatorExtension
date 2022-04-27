@@ -9,10 +9,19 @@ function createSimplePanel(text, x, y) {
   div.className = "my_translation_div";
   div.style.left = x + "px";
   div.style.top = y + "px";
+  div.style.overflow = "hidden";
+  div.style.boxSizing = "border-box";
+  div.style.display = "inline-block !important";
+  div.style.position = "absolute";
+  div.style.zIndex = 2147483646;
+  div.style.pointerEvents = "none";
+  div.style.backgroundColor = "white";
+  div.style.border = "1px solid #e0e0e0";
+  div.style.boxShadow = "0 2px 6px #e0e0e0";
 
   var t = document.createElement('p');
   t.className = "my_translation_text";
-  t.innerText = text;
+  t.innerText = `Translating...`;
 
   div.appendChild(t);
   document.documentElement.appendChild(div);
@@ -82,7 +91,7 @@ port.onMessage.addListener(function(msg) {
   console.log(`main.js receive msg ${JSON.stringify(msg)}`)
   if (msg.type === "update_div") {
     if (my_translation_active_div) {
-      my_translation_active_div.innerText = msg.data;
+      show(my_translation_active_div, msg.data)
     }
   }
 });

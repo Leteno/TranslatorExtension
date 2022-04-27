@@ -1,0 +1,14 @@
+
+#ht_content {
+  font-size: 13px;
+  padding: 10px;
+}
+
+  #ht_content h4 {
+    display: inline-block;
+    margin: 0;
+  }
+  #ht_content .ht_attr {
+    _font-family: Lucida Sans Unicode,sans-serif;
+    color: #737373;
+  }

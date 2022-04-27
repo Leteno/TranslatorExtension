@@ -15,9 +15,11 @@
         "<all_urls>"
       ],
       "css": [
+        "content_scripts/bing_api_parser.css",
         "content_scripts/main.css"
       ],
       "js": [
+        "content_scripts/bing_api_parser.js",
         "content_scripts/main.js"
       ]
     }
