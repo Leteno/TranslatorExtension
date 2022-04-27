@@ -4,7 +4,10 @@
 
 > I could easily disable the function in two clicks.
 
+![usage.png](images/usage.png)
+
 Now, you could translate the word by selecting it.
+
 The translation is powered by Bing Translation. Thanks a lot.
 
 I may postpone the development as it meets my essential need, now I could start
