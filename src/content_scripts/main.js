@@ -15,6 +15,13 @@ function createSimplePanel(text, x, y) {
   document.documentElement.appendChild(div);
 }
 
+function removeSimplePanels() {
+  var div_list = document.getElementsByClassName("my_translation_div");
+  for (let i = 0; i < div_list.length; i++) {
+    document.documentElement.removeChild(div_list[i]);
+  }
+}
+
 function getSelectionText() {
   var txt = '';
   if (window.getSelection) {
@@ -29,10 +36,35 @@ function getSelectionText() {
   return txt;
 }
 
+function getSelectionChecker() {
+  var lastSelection = "";
+  return function(selection) {
+    var finalText = `${selection}`.trim();
+    console.log(`finalText '${finalText}', lastText: '${lastSelection}'`)
+    if (finalText.length == 0) {
+      lastSelection = "";
+      return false;
+    }
+    if (lastSelection == finalText) {
+        return false;
+    }
+    lastSelection = finalText;
+    return true;
+  }
+}
+
 function main() {
+  var checker = getSelectionChecker();
   document.addEventListener('mouseup', (event) => {
     var selection = getSelectionText();
-    createSimplePanel(selection, event.clientX + window.scrollX, event.clientY + window.scrollY);
+    if (checker(selection)) {
+      createSimplePanel(selection, event.clientX + window.scrollX, event.clientY + window.scrollY);
+    } else {
+      removeSimplePanels()
+    }
+  })
+  document.addEventListener('mousedown', (event) => {
+    removeSimplePanels()
   })
 }
 
