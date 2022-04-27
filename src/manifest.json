@@ -18,9 +18,11 @@
         "content_scripts/main.css"
       ],
       "js": [
-        "content_scripts/request.js",
         "content_scripts/main.js"
       ]
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "background_scripts/background.js"
+  }
 }
