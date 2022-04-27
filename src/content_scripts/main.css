@@ -1,5 +1,14 @@
 
-#my_translator_h1 {
-  font-size: 100px;
-  color: darkgreen;
+.my_translation_div {
+  background-color: red;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: inline-block !important;
+  position: absolute;
+  z-index: 2147483646;
+  pointer-events: none;
+}
+
+.my_translation_text {
+  color: blue;
 }

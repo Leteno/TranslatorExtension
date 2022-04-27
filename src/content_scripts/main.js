@@ -1,14 +1,19 @@
 
 console.log("hi, now you see me, soon you won't")
 
-function createSimplePanel(text) {
-  var t = document.createElement('h1');
-  t.id = "my_translator_h1";
-  t.innerText = text;
-  document.body.appendChild(t);
-}
+function createSimplePanel(text, x, y) {
+  var div = document.createElement('div');
+  div.className = "my_translation_div";
+  div.style.left = x + "px";
+  div.style.top = y + "px";
 
-createSimplePanel("I miss you")
+  var t = document.createElement('p');
+  t.className = "my_translation_text";
+  t.innerText = text;
+
+  div.appendChild(t);
+  document.documentElement.appendChild(div);
+}
 
 function getSelectionText() {
   var txt = '';
@@ -21,15 +26,13 @@ function getSelectionText() {
   else if (document.selection) {
     txt = document.selection.createRange().text;
   }
-
   return txt;
 }
 
 function main() {
   document.addEventListener('mouseup', (event) => {
-    console.log(`Position: ${event.clientX} ${event.clientY}`)
     var selection = getSelectionText();
-    console.log(`selection is ${selection}`);
+    createSimplePanel(selection, event.clientX + window.scrollX, event.clientY + window.scrollY);
   })
 }
 
