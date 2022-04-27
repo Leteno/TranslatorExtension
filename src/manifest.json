@@ -18,6 +18,7 @@
         "content_scripts/main.css"
       ],
       "js": [
+        "content_scripts/request.js",
         "content_scripts/main.js"
       ]
     }

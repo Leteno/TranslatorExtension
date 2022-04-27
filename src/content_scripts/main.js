@@ -10,6 +10,9 @@ function createSimplePanel(text, x, y) {
   var t = document.createElement('p');
   t.className = "my_translation_text";
   t.innerText = text;
+  queryByBing(text, function(result) {
+    t.innerText = result;
+  })
 
   div.appendChild(t);
   document.documentElement.appendChild(div);
