@@ -16,6 +16,15 @@
  * </div>
  */
 function show(div, bing_output) {
+  for (let i = 0; i < div.childNodes.length; i++) {
+    div.removeChild(div.childNodes[i]);
+  }
+  if (!bing_output || bing_output.length == 0) {
+    let h1 = document.createElement('p')
+    h1.innerText = "Something wrong, sorry, we don't support multi-words yet."
+    div.appendChild(h1);
+    return;
+  }
   const parser = new DOMParser()
   var htmlElement = parser.parseFromString(bing_output, "text/html");
   var target_div = htmlElement.body.childNodes[0];
@@ -24,8 +33,5 @@ function show(div, bing_output) {
   mid_div.id = "ht_pop";
   mid_div.className = "hts_pop"
   mid_div.appendChild(target_div)
-  for (let i = 0; i < div.childNodes.length; i++) {
-    div.removeChild(div.childNodes[i]);
-  }
   div.appendChild(mid_div);
 }
