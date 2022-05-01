@@ -2,7 +2,25 @@
 console.log("hi, now you see me, soon you won't")
 
 let my_translation_active_div = null;
-var port = chrome.runtime.connect({name: "translator"});
+var port = null;
+function renewPort() {
+  console.log("port is renewing");
+  port = chrome.runtime.connect({name: "translator"});
+
+  port.onMessage.addListener(function(msg) {
+    console.log(`main.js receive msg ${JSON.stringify(msg)}`)
+    if (msg.type === "update_div") {
+      if (my_translation_active_div) {
+        show(my_translation_active_div, msg.data)
+      }
+    }
+  });
+  port.onDisconnect.addListener(function(msg) {
+    port = null;
+    console.log("port is disconnected")
+  });
+
+}
 
 function createSimplePanel(text, x, y) {
   var div = document.createElement('div');
@@ -26,6 +44,9 @@ function createSimplePanel(text, x, y) {
   div.appendChild(t);
   document.documentElement.appendChild(div);
   my_translation_active_div = div;
+  if (port == null) {
+    renewPort();
+  }
   port.postMessage({type: 'query', data: escape(`${text}`.trim())});
 }
 
@@ -87,12 +108,4 @@ function main() {
     }
   );
 }
-port.onMessage.addListener(function(msg) {
-  console.log(`main.js receive msg ${JSON.stringify(msg)}`)
-  if (msg.type === "update_div") {
-    if (my_translation_active_div) {
-      show(my_translation_active_div, msg.data)
-    }
-  }
-});
 main()
