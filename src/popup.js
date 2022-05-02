@@ -7,8 +7,15 @@ function notifyActiveTab(msg) {
 }
 
 const enableCheckbox = document.getElementById("checkbox");
+chrome.storage.local.get(['enable'], function(result) {
+  console.log('Value currently is ' + result.key);
+  enableCheckbox.checked.result.key;
+});
 enableCheckbox.addEventListener("click", (event) => {
   let enabled = enableCheckbox.checked;
+  chrome.storage.local.set({'enable': enabled}, function() {
+    console.log('Value is set to ' + value);
+  });
   console.log(`You like ${enabled}`);
   notifyActiveTab({
     type: "isEnabled",
