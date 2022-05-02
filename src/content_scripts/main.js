@@ -1,6 +1,7 @@
 
 console.log("hi, now you see me, soon you won't")
 
+let _enable = true;
 let my_translation_active_div = null;
 var port = null;
 function renewPort() {
@@ -93,7 +94,7 @@ function main() {
   var checker = getSelectionChecker();
   document.addEventListener('mouseup', (event) => {
     var selection = getSelectionText();
-    if (checker(selection)) {
+    if (checker(selection) && _enable) {
       createSimplePanel(selection, event.clientX + window.scrollX, event.clientY + window.scrollY);
     } else {
       removeSimplePanels()
@@ -105,6 +106,13 @@ function main() {
   chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
       console.log(`main.js: ${JSON.stringify(request)}`)
+      if (request.type == undefined) {
+        return;
+      }
+      if (request.type == "isEnabled") {
+        console.log("got message about isEnabled: " + (!!request.value));
+        _enable = !!request.value;
+      }
     }
   );
 }
